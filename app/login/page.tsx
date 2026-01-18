@@ -136,6 +136,28 @@ function LoginContent() {
             </div>
           </div>
         `;
+      } else if (platform === 'vscode') {
+        const deepLink = `vscode://cosavu.cosavu-optimizer/auth-callback?token=${token}`;
+
+        // Attempt redirect
+        window.location.href = deepLink;
+
+        // Show success UI with manual button
+        document.body.innerHTML = `
+            <div class="min-h-screen flex bg-white items-center justify-center">
+              <div class="text-center space-y-6 p-8">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mx-auto text-green-500">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h1 class="text-3xl font-medium">Authentication Successful</h1>
+                <p class="text-gray-600">You can now return to VS Code.</p>
+                <a href="${deepLink}" class="inline-block px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors">
+                  Open VS Code
+                </a>
+              </div>
+            </div>
+        `;
       } else {
         // For web, redirect to chat.tnsaai.com
         window.location.href = `${redirectUri}/authredirect?${params.toString()}`;
