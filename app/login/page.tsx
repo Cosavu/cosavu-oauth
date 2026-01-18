@@ -136,8 +136,9 @@ function LoginContent() {
             </div>
           </div>
         `;
-      } else if (platform === 'vscode') {
-        const deepLink = `vscode://cosavu.cosavu-optimizer/auth-callback?token=${token}`;
+      } else if (platform === 'vscode' || platform === 'ide') {
+        const targetScheme = searchParams.get("scheme") || "vscode";
+        const deepLink = `${targetScheme}://cosavu.cosavu-optimizer/auth-callback?token=${token}`;
 
         // Attempt redirect
         window.location.href = deepLink;
@@ -151,9 +152,9 @@ function LoginContent() {
                   <polyline points="22 4 12 14.01 9 11.01"></polyline>
                 </svg>
                 <h1 class="text-3xl font-medium">Authentication Successful</h1>
-                <p class="text-gray-600">You can now return to VS Code.</p>
+                <p class="text-gray-600">You can now return to your editor.</p>
                 <a href="${deepLink}" class="inline-block px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors">
-                  Open VS Code
+                  Open Editor
                 </a>
               </div>
             </div>
